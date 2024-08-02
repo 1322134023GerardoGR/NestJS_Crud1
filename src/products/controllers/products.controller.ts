@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpStatus } from "@nestjs/common";
 import { ProductsService } from '../services/products.service';
 import { Product } from '../entity/product.entity';
 import { CreateProductDto } from '../entity/dto/create-product.dto';
@@ -31,5 +31,10 @@ export class ProductsController {
   @Delete(':id')
   delete(@Param('id') id: number): Promise<void> {
     return this.productsService.delete(id);
+  }
+
+  @Get('test/exception')
+  testException(): void {
+    throw new HttpException('This is a test exception', HttpStatus.BAD_REQUEST);
   }
 }
